@@ -1,0 +1,21 @@
+{
+  "name": "@eldadzack/rr-mdi",
+  "reason": {
+    "react-jsx": 2
+  },
+  "sources": {
+    "dir" : "src",
+    "public": ["Mdi", "MdiType"],
+    "subdirs" : true
+  },
+  "package-specs": [{
+    "module": "es6",
+    "in-source": true
+  }],
+  "suffix": ".bs.js",
+  "namespace": false,
+  "bs-dependencies": [
+    "reason-react"
+  ],
+  "refmt": 3
+}
