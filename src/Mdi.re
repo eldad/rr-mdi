@@ -39,7 +39,7 @@ let size_to_string = (size: mdi_size) =>
 
 let component = ReasonReact.statelessComponent("MDI");
 
-let make = (~kind: MdiType.t, ~color: option(string)=?, ~extra_class: option(string)=?, ~onClick=?, ~size: mdi_size=Size24, _children) => {
+let make = (~kind: MdiType.t, ~style: option(ReactDOMRe.Style.t) = ?, ~color: option(string)=?, ~extra_class: option(string)=?, ~onClick=?, ~size: mdi_size=Size24, _children) => {
   ...component,
   render: _self => {
     let className = "mdi " ++ MdiType.name(kind) ++ " " ++ size_to_string(size);
@@ -51,9 +51,11 @@ let make = (~kind: MdiType.t, ~color: option(string)=?, ~extra_class: option(str
       };
 
     let style =
-      switch (color) {
-      | None => None
-      | Some(s) => Some(ReactDOMRe.Style.make(~color=s, ()))
+      switch (style, color) {
+        | (Some(s), Some(c)) => Some(ReactDOMRe.Style.unsafeAddProp(s, "color", c))
+        | (None, Some(c)) => Some(ReactDOMRe.Style.make(~color=c, ()))
+        | (Some(s), None) => Some(s)
+        | _ => None
       };
 
     <span className ?style ?onClick />;
